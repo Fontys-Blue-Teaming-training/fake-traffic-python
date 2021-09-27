@@ -3,9 +3,17 @@ import time
 from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
 from ftplib import FTP
+import paramiko
 
 browser = webdriver.Chrome(ChromeDriverManager().install())
 siteList = open("sites.txt", "r")
+
+host = "142.93.153.136"
+port = 22
+username = "cloudssh.us-TestSOC"
+password = "Test123!"
+
+command = "ls"
 
 for line in siteList:
   try:
@@ -40,5 +48,21 @@ try:
   print(resp.status_code)
 except:
   print("Download failed, continuing script")
+
+print("Download has been completed, we are now moving on to making an SSH connection")
+
+try:
+    ssh = paramiko.SSHClient()
+    print("Creating connection")
+    ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+    ssh.connect(host, port, username, password)
+    print("Connection created")
+    ssh.close()
+except:
+    print("Connection failed, moving on")
+
+print("Script finished")
+
+
 
 

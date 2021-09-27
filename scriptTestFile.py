@@ -1,7 +1,20 @@
-import requests
+import paramiko
 
-url = "http://speedtest.tele2.net/10MB.zip"
+host = "142.93.153.136"
+port = 22
+username = "cloudssh.us-TestSOC"
+password = "Test123!"
 
-resp = requests.get(url)
+command = "ls"
 
-print(resp.status_code)
+try:
+    ssh = paramiko.SSHClient()
+    print("Creating connection")
+    ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+    ssh.connect(host, port, username, password)
+    print("Connection created")
+    ssh.close()
+except:
+    print("Connection failed, moving on")
+
+print("Script finished")
