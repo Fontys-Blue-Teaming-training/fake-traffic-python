@@ -84,9 +84,14 @@ def openSSHClient():
         print ('Connection failed, moving on')
 
 # creating and opening threads 2-4
-t1 = threading.Thread(target=openWebpage).start()
-t2 = threading.Thread(target=openFTP).start()
-t3 = threading.Thread(target=downloadFile).start()
-t4 = threading.Thread(target=openSSHClient).start()
+def loopThreads():
+    while True:
+        threading.Thread(target=openWebpage).start()
+        threading.Thread(target=openFTP).start()
+        threading.Thread(target=downloadFile).start()
+        threading.Thread(target=openSSHClient).start()
+        time.sleep(2);
+
+loopThreads();
 
 print ('Script finished')
