@@ -1,5 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
+import webbrowser
+
 import requests
 import time
 from selenium import webdriver
@@ -19,18 +21,18 @@ host = '142.93.153.136'
 port = 22
 username = 'cloudssh.us-TestSOC'
 password = 'Test123!'
-
 command = 'ls'
 
 
 # open Webpages in List
 
 def openWebpage():
-    for line in siteList:
+    f = open("sites.txt", "r")
+    for line in f:
         try:
-            webURL = line.strip()
-            print ('Opening ') + webURL
-            browser.get(webURL)
+            url = line.strip()
+            print('Opening ' + url)
+            browser.get(url)
             time.sleep(2)
         except:
             print ("This site didn't load")
@@ -81,8 +83,7 @@ def openSSHClient():
     except:
         print ('Connection failed, moving on')
 
-
-# creating and opening threads 1-4
+# creating and opening threads 2-4
 t1 = threading.Thread(target=openWebpage).start()
 t2 = threading.Thread(target=openFTP).start()
 t3 = threading.Thread(target=downloadFile).start()
