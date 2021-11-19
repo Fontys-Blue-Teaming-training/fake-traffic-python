@@ -89,7 +89,7 @@ def loopThreads():
         threading.Thread(target=openWebpage).start()
         threading.Thread(target=openFTP).start()
         threading.Thread(target=downloadFile).start()
-        threading.Thread(target=openSSHClient).start()
+        # threading.Thread(target=openSSHClient).start()
         time.sleep(2);
 
 loopThreads();
